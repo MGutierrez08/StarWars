@@ -1,6 +1,6 @@
-CREATE DATABASE RepublicaGalactica
+CREATE DATABASE StarWars
 GO
-USE RepublicaGalactica
+USE StarWars
 GO
 CREATE TABLE Galaxia(
 IdGalaxia INT PRIMARY KEY IDENTITY(1,1),
