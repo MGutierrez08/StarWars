@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RepublicaGalacticaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Maestro">
+          <Key>
+            <PropertyRef Name="IdMaestro" />
+          </Key>
+          <Property Name="IdMaestro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOrdenJedi" Type="int" />
+          <Property Name="IdSistemasAmenazados" Type="int" />
+          <Property Name="Rango" Type="bit" />
+        </EntityType>
+        <EntityType Name="OrdenJedi">
+          <Key>
+            <PropertyRef Name="IdOrdenJedi" />
+          </Key>
+          <Property Name="IdOrdenJedi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="40" />
+          <Property Name="Edad" Type="int" />
+          <Property Name="NivelMidiclorianosSangre" Type="int" />
+          <Property Name="DatosDeInteres" Type="varchar" MaxLength="40" />
+          <Property Name="IdEspecie" Type="int" />
+        </EntityType>
+        <EntityType Name="Sistema">
+          <Key>
+            <PropertyRef Name="IdSistema" />
+          </Key>
+          <Property Name="IdSistema" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="40" />
+          <Property Name="IdGalaxia" Type="int" />
+        </EntityType>
+        <EntityType Name="SistemasAmenazados">
+          <Key>
+            <PropertyRef Name="IdSistemasAmenazados" />
+          </Key>
+          <Property Name="IdSistemasAmenazados" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSistema" Type="int" />
+          <Property Name="Amenazado" Type="bit" />
+        </EntityType>
+        <Association Name="FK_IdOrdenJedi">
+          <End Role="OrdenJedi" Type="Self.OrdenJedi" Multiplicity="0..1" />
+          <End Role="Maestro" Type="Self.Maestro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenJedi">
+              <PropertyRef Name="IdOrdenJedi" />
+            </Principal>
+            <Dependent Role="Maestro">
+              <PropertyRef Name="IdOrdenJedi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdSistema1">
+          <End Role="Sistema" Type="Self.Sistema" Multiplicity="0..1" />
+          <End Role="SistemasAmenazados" Type="Self.SistemasAmenazados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sistema">
+              <PropertyRef Name="IdSistema" />
+            </Principal>
+            <Dependent Role="SistemasAmenazados">
+              <PropertyRef Name="IdSistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdSistemasAmenazados">
+          <End Role="SistemasAmenazados" Type="Self.SistemasAmenazados" Multiplicity="0..1" />
+          <End Role="Maestro" Type="Self.Maestro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SistemasAmenazados">
+              <PropertyRef Name="IdSistemasAmenazados" />
+            </Principal>
+            <Dependent Role="Maestro">
+              <PropertyRef Name="IdSistemasAmenazados" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Informe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="RepublicaGalacticaModelStoreContainer">
+          <EntitySet Name="Maestro" EntityType="Self.Maestro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenJedi" EntityType="Self.OrdenJedi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sistema" EntityType="Self.Sistema" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SistemasAmenazados" EntityType="Self.SistemasAmenazados" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_IdOrdenJedi" Association="Self.FK_IdOrdenJedi">
+            <End Role="OrdenJedi" EntitySet="OrdenJedi" />
+            <End Role="Maestro" EntitySet="Maestro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdSistema1" Association="Self.FK_IdSistema1">
+            <End Role="Sistema" EntitySet="Sistema" />
+            <End Role="SistemasAmenazados" EntitySet="SistemasAmenazados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdSistemasAmenazados" Association="Self.FK_IdSistemasAmenazados">
+            <End Role="SistemasAmenazados" EntitySet="SistemasAmenazados" />
+            <End Role="Maestro" EntitySet="Maestro" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RepublicaGalacticaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Maestro">
+          <Key>
+            <PropertyRef Name="IdMaestro" />
+          </Key>
+          <Property Name="IdMaestro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOrdenJedi" Type="Int32" />
+          <Property Name="IdSistemasAmenazados" Type="Int32" />
+          <Property Name="Rango" Type="Boolean" />
+          <NavigationProperty Name="OrdenJedi" Relationship="Self.FK_IdOrdenJedi" FromRole="Maestro" ToRole="OrdenJedi" />
+          <NavigationProperty Name="SistemasAmenazados" Relationship="Self.FK_IdSistemasAmenazados" FromRole="Maestro" ToRole="SistemasAmenazados" />
+        </EntityType>
+        <EntityType Name="OrdenJedi">
+          <Key>
+            <PropertyRef Name="IdOrdenJedi" />
+          </Key>
+          <Property Name="IdOrdenJedi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Edad" Type="Int32" />
+          <Property Name="NivelMidiclorianosSangre" Type="Int32" />
+          <Property Name="DatosDeInteres" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IdEspecie" Type="Int32" />
+          <NavigationProperty Name="Maestro" Relationship="Self.FK_IdOrdenJedi" FromRole="OrdenJedi" ToRole="Maestro" />
+        </EntityType>
+        <EntityType Name="Sistema">
+          <Key>
+            <PropertyRef Name="IdSistema" />
+          </Key>
+          <Property Name="IdSistema" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IdGalaxia" Type="Int32" />
+          <NavigationProperty Name="SistemasAmenazados" Relationship="Self.FK_IdSistema1" FromRole="Sistema" ToRole="SistemasAmenazados" />
+        </EntityType>
+        <EntityType Name="SistemasAmenazados">
+          <Key>
+            <PropertyRef Name="IdSistemasAmenazados" />
+          </Key>
+          <Property Name="IdSistemasAmenazados" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSistema" Type="Int32" />
+          <Property Name="Amenazado" Type="Boolean" />
+          <NavigationProperty Name="Maestro" Relationship="Self.FK_IdSistemasAmenazados" FromRole="SistemasAmenazados" ToRole="Maestro" />
+          <NavigationProperty Name="Sistema" Relationship="Self.FK_IdSistema1" FromRole="SistemasAmenazados" ToRole="Sistema" />
+        </EntityType>
+        <Association Name="FK_IdOrdenJedi">
+          <End Role="OrdenJedi" Type="Self.OrdenJedi" Multiplicity="0..1" />
+          <End Role="Maestro" Type="Self.Maestro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenJedi">
+              <PropertyRef Name="IdOrdenJedi" />
+            </Principal>
+            <Dependent Role="Maestro">
+              <PropertyRef Name="IdOrdenJedi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdSistemasAmenazados">
+          <End Role="SistemasAmenazados" Type="Self.SistemasAmenazados" Multiplicity="0..1" />
+          <End Role="Maestro" Type="Self.Maestro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SistemasAmenazados">
+              <PropertyRef Name="IdSistemasAmenazados" />
+            </Principal>
+            <Dependent Role="Maestro">
+              <PropertyRef Name="IdSistemasAmenazados" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdSistema1">
+          <End Role="Sistema" Type="Self.Sistema" Multiplicity="0..1" />
+          <End Role="SistemasAmenazados" Type="Self.SistemasAmenazados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sistema">
+              <PropertyRef Name="IdSistema" />
+            </Principal>
+            <Dependent Role="SistemasAmenazados">
+              <PropertyRef Name="IdSistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RepublicaGalacticaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Maestro" EntityType="Self.Maestro" />
+          <EntitySet Name="OrdenJedi" EntityType="Self.OrdenJedi" />
+          <EntitySet Name="Sistema" EntityType="Self.Sistema" />
+          <EntitySet Name="SistemasAmenazados" EntityType="Self.SistemasAmenazados" />
+          <AssociationSet Name="FK_IdOrdenJedi" Association="Self.FK_IdOrdenJedi">
+            <End Role="OrdenJedi" EntitySet="OrdenJedi" />
+            <End Role="Maestro" EntitySet="Maestro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdSistemasAmenazados" Association="Self.FK_IdSistemasAmenazados">
+            <End Role="SistemasAmenazados" EntitySet="SistemasAmenazados" />
+            <End Role="Maestro" EntitySet="Maestro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdSistema1" Association="Self.FK_IdSistema1">
+            <End Role="Sistema" EntitySet="Sistema" />
+            <End Role="SistemasAmenazados" EntitySet="SistemasAmenazados" />
+          </AssociationSet>
+          <FunctionImport Name="Informe" ReturnType="Collection(RepublicaGalacticaModel.Informe_Result)" />
+        </EntityContainer>
+        <ComplexType Name="Informe_Result">
+          <Property Type="String" Name="NombreCaballero" Nullable="true" MaxLength="40" />
+          <Property Type="Int32" Name="IdSistemasAmenazados" Nullable="false" />
+          <Property Type="String" Name="NombreCombate" Nullable="true" MaxLength="40" />
+          <Property Type="Boolean" Name="Rango" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RepublicaGalacticaModelStoreContainer" CdmEntityContainer="RepublicaGalacticaEntities">
+          <EntitySetMapping Name="Maestro">
+            <EntityTypeMapping TypeName="RepublicaGalacticaModel.Maestro">
+              <MappingFragment StoreEntitySet="Maestro">
+                <ScalarProperty Name="IdMaestro" ColumnName="IdMaestro" />
+                <ScalarProperty Name="IdOrdenJedi" ColumnName="IdOrdenJedi" />
+                <ScalarProperty Name="IdSistemasAmenazados" ColumnName="IdSistemasAmenazados" />
+                <ScalarProperty Name="Rango" ColumnName="Rango" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenJedi">
+            <EntityTypeMapping TypeName="RepublicaGalacticaModel.OrdenJedi">
+              <MappingFragment StoreEntitySet="OrdenJedi">
+                <ScalarProperty Name="IdOrdenJedi" ColumnName="IdOrdenJedi" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="NivelMidiclorianosSangre" ColumnName="NivelMidiclorianosSangre" />
+                <ScalarProperty Name="DatosDeInteres" ColumnName="DatosDeInteres" />
+                <ScalarProperty Name="IdEspecie" ColumnName="IdEspecie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sistema">
+            <EntityTypeMapping TypeName="RepublicaGalacticaModel.Sistema">
+              <MappingFragment StoreEntitySet="Sistema">
+                <ScalarProperty Name="IdSistema" ColumnName="IdSistema" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdGalaxia" ColumnName="IdGalaxia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SistemasAmenazados">
+            <EntityTypeMapping TypeName="RepublicaGalacticaModel.SistemasAmenazados">
+              <MappingFragment StoreEntitySet="SistemasAmenazados">
+                <ScalarProperty Name="IdSistemasAmenazados" ColumnName="IdSistemasAmenazados" />
+                <ScalarProperty Name="IdSistema" ColumnName="IdSistema" />
+                <ScalarProperty Name="Amenazado" ColumnName="Amenazado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Informe" FunctionName="RepublicaGalacticaModel.Store.Informe">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RepublicaGalacticaModel.Informe_Result">
+                <ScalarProperty Name="NombreCaballero" ColumnName="NombreCaballero" />
+                <ScalarProperty Name="IdSistemasAmenazados" ColumnName="IdSistemasAmenazados" />
+                <ScalarProperty Name="NombreCombate" ColumnName="NombreCombate" />
+                <ScalarProperty Name="Rango" ColumnName="Rango" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
